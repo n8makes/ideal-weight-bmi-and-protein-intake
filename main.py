@@ -40,7 +40,9 @@ with col1:
         height = st.number_input('Height (cm)', min_value=0.0, max_value=300.0, value=170.0)
     else:
         weight = st.number_input('Weight (lbs)', min_value=0.0, max_value=1000.0, value=150.0)
-        height = st.number_input('Height (inches)', min_value=0.0, max_value=120.0, value=67.0)
+        feet = st.number_input('Height (feet)', min_value=0, max_value=8, value=5)
+        inches = st.number_input('Height (inches)', min_value=0, max_value=11, value=7)
+        height = feet * 12 + inches  # Convert to total inches for BMI calculation
     st.markdown("</div>", unsafe_allow_html=True)
 
 # Calculate BMI
