@@ -24,13 +24,16 @@ def get_bmi_category(bmi):
     else:
         return "Obese", "#DC3545"
 
-def calculate_healthy_weight_range(height, unit_system='metric'):
-    """Calculate healthy weight range for given height."""
+def calculate_healthy_weight_range(height, unit_system='metric', gender='male'):
+    """Calculate healthy weight range for given height and gender."""
+    min_bmi = 18.5  # Same minimum BMI for both genders
+    max_bmi = 25.0 if gender.lower() == 'male' else 24.5  # Different max BMI based on gender
+    
     if unit_system == 'metric':
-        min_weight = 18.5 * (height/100)**2
-        max_weight = 24.9 * (height/100)**2
+        min_weight = min_bmi * (height/100)**2
+        max_weight = max_bmi * (height/100)**2
         return round(min_weight, 1), round(max_weight, 1)
     else:
-        min_weight = (18.5 * (height**2)) / 703
-        max_weight = (24.9 * (height**2)) / 703
+        min_weight = (min_bmi * (height**2)) / 703
+        max_weight = (max_bmi * (height**2)) / 703
         return round(min_weight, 1), round(max_weight, 1)

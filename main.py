@@ -27,6 +27,12 @@ with col1:
         ('Metric', 'Imperial'),
         index=0
     )
+    
+    gender = st.radio(
+        "Select Gender",
+        ('Male', 'Female'),
+        index=0
+    )
 
     # Input fields based on unit system
     if unit_system == 'Metric':
@@ -43,7 +49,7 @@ category, category_color = get_bmi_category(bmi)
 
 # Calculate healthy weight range
 if height > 0:
-    min_weight, max_weight = calculate_healthy_weight_range(height, unit_system.lower())
+    min_weight, max_weight = calculate_healthy_weight_range(height, unit_system.lower(), gender)
     weight_unit = 'kg' if unit_system == 'Metric' else 'lbs'
     healthy_range = f"{min_weight} - {max_weight} {weight_unit}"
 else:
@@ -128,5 +134,12 @@ st.markdown("""
 - **Obese**: BMI of 30 or greater
 
 ### Note:
-BMI is a screening tool but not a diagnostic tool. Factors such as age, ethnicity, muscle mass, and sex can influence the relationship between body fat and BMI. Please consult with a healthcare provider for a complete health assessment.
+BMI is a screening tool but not a diagnostic tool. Important considerations:
+
+- **Gender Differences**: Women typically have higher body fat percentages than men. This calculator uses slightly different ranges:
+  - Males: Normal BMI range of 18.5-25.0
+  - Females: Normal BMI range of 18.5-24.5
+- Other factors such as age, ethnicity, muscle mass, and body composition can influence the relationship between body fat and BMI
+- Athletes or very muscular individuals may have a high BMI but not excess body fat
+- Please consult with a healthcare provider for a complete health assessment
 """)
