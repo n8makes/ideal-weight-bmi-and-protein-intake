@@ -1,0 +1,45 @@
+.stApp {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.main-header {
+    color: #0077B6;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.input-section {
+    background-color: #F8F9FA;
+    padding: 2rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+}
+
+.result-section {
+    background-color: #E9ECEF;
+    padding: 2rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.category-normal {
+    color: #198754;
+    font-weight: bold;
+}
+
+.category-overweight {
+    color: #FFC107;
+    font-weight: bold;
+}
+
+.category-obese {
+    color: #DC3545;
+    font-weight: bold;
+}
+
+.category-underweight {
+    color: #0DCAF0;
+    font-weight: bold;
+}
