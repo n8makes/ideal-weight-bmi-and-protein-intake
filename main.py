@@ -1,7 +1,7 @@
 import streamlit as st
 import plotly.graph_objects as go
 import numpy as np
-from utils import calculate_bmi, get_bmi_category, calculate_healthy_weight_range
+from utils import calculate_bmi, get_bmi_category, calculate_healthy_weight_range, calculate_protein_requirement
 
 # Page configuration
 st.set_page_config(
@@ -54,8 +54,18 @@ if height > 0:
     min_weight, max_weight = calculate_healthy_weight_range(height, unit_system.lower(), gender)
     weight_unit = 'kg' if unit_system == 'Metric' else 'lbs'
     healthy_range = f"{min_weight} - {max_weight} {weight_unit}"
+    
+    # Calculate ideal weight and protein requirement
+    ideal_weight = (min_weight + max_weight) / 2
+    if unit_system == 'Metric':
+        # Convert kg to lbs for protein calculation
+        ideal_weight_lbs = ideal_weight * 2.20462
+    else:
+        ideal_weight_lbs = ideal_weight
+    protein_requirement = calculate_protein_requirement(ideal_weight_lbs)
 else:
     healthy_range = "N/A"
+    protein_requirement = 0
 
 # Display results
 with col2:
@@ -65,6 +75,8 @@ with col2:
         st.markdown(f"<h3>Category: <span style='color:{category_color}'>{category}</span></h3>", 
                    unsafe_allow_html=True)
         st.markdown(f"<p>Healthy weight range for your height: {healthy_range}</p>", 
+                   unsafe_allow_html=True)
+        st.markdown(f"<p>Recommended daily protein intake: {round(protein_requirement)} grams</p>", 
                    unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
 

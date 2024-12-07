@@ -37,3 +37,7 @@ def calculate_healthy_weight_range(height, unit_system='metric', gender='male'):
         min_weight = (min_bmi * (height**2)) / 703
         max_weight = (max_bmi * (height**2)) / 703
         return round(min_weight, 1), round(max_weight, 1)
+
+def calculate_protein_requirement(ideal_weight):
+    '''Calculate daily protein requirement in grams based on ideal body weight in pounds'''
+    return round(ideal_weight)  # 1g per pound of ideal weight
