@@ -25,7 +25,7 @@ with col1:
     unit_system = st.radio(
         "Select Unit System",
         ('Metric', 'Imperial'),
-        index=0
+        index=1
     )
     
     gender = st.radio(
@@ -39,7 +39,7 @@ with col1:
         weight = st.number_input('Weight (kg)', min_value=0.0, max_value=500.0, value=70.0)
         height = st.number_input('Height (cm)', min_value=0.0, max_value=300.0, value=170.0)
     else:
-        weight = st.number_input('Weight (lbs)', min_value=0.0, max_value=1000.0, value=154.0)
+        weight = st.number_input('Weight (lbs)', min_value=0.0, max_value=1000.0, value=150.0)
         height = st.number_input('Height (inches)', min_value=0.0, max_value=120.0, value=67.0)
     st.markdown("</div>", unsafe_allow_html=True)
 
