@@ -112,8 +112,28 @@ function updateBMIMarker(bmi) {
     }
     
     const chartArea = document.getElementById('bmiChart').getBoundingClientRect();
-    const containerArea = container.getBoundingClientRect();
-    const position = (bmi / 40) * chartArea.width;
+    
+    // Define BMI ranges
+    const ranges = [
+        { min: 0, max: 18.5 },    // Underweight
+        { min: 18.5, max: 25 },   // Normal
+        { min: 25, max: 30 },     // Overweight
+        { min: 30, max: 40 }      // Obese
+    ];
+    
+    // Find which segment the BMI falls into and calculate relative position
+    let position = 0;
+    const totalWidth = chartArea.width;
+    let segmentWidth = totalWidth / ranges.length;
+    
+    for (let i = 0; i < ranges.length; i++) {
+        if (bmi >= ranges[i].min && bmi <= ranges[i].max) {
+            const segmentStart = i * segmentWidth;
+            const relativePosition = (bmi - ranges[i].min) / (ranges[i].max - ranges[i].min);
+            position = segmentStart + (relativePosition * segmentWidth);
+            break;
+        }
+    }
     
     markerDiv.style.left = `${position}px`;
     markerLabel.textContent = `BMI ${bmi}`;
