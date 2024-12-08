@@ -60,9 +60,29 @@ function initializeChart() {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            layout: {
-                padding: {
-                    top: 30
+            plugins: {
+                annotation: {
+                    annotations: {
+                        line1: {
+                            type: 'line',
+                            yMin: 0,
+                            yMax: 2,
+                            borderColor: 'black',
+                            borderWidth: 2,
+                            display: false
+                        }
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const range = ranges[context.dataIndex];
+                            return `BMI ${range.min}-${range.max}`;
+                        }
+                    }
                 }
             },
             scales: {
@@ -76,43 +96,18 @@ function initializeChart() {
                     display: false,
                     max: 2
                 }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const range = ranges[context.dataIndex];
-                            return `BMI ${range.min}-${range.max}`;
-                        }
-                    }
-                }
             }
         }
     });
 }
 
 function updateBMIMarker(bmi) {
-    const markerDiv = document.getElementById('bmi-marker');
-    if (!markerDiv) {
-        const canvas = document.getElementById('bmiChart');
-        const marker = document.createElement('div');
-        marker.id = 'bmi-marker';
-        marker.style.position = 'absolute';
-        marker.style.width = '2px';
-        marker.style.backgroundColor = 'black';
-        marker.style.top = '0';
-        marker.style.height = '20px';
-        canvas.parentElement.style.position = 'relative';
-        canvas.parentElement.appendChild(marker);
+    if (bmiChart) {
+        bmiChart.options.plugins.annotation.annotations.line1.xMin = bmi;
+        bmiChart.options.plugins.annotation.annotations.line1.xMax = bmi;
+        bmiChart.options.plugins.annotation.annotations.line1.display = true;
+        bmiChart.update();
     }
-    
-    const canvas = document.getElementById('bmiChart');
-    const rect = canvas.getBoundingClientRect();
-    const position = (bmi / 40) * rect.width;
-    markerDiv.style.left = `${position}px`;
 }
 
 // Event handlers and UI updates
