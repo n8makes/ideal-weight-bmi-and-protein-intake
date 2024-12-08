@@ -60,6 +60,11 @@ function initializeChart() {
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    top: 30
+                }
+            },
             scales: {
                 x: {
                     stacked: true,
@@ -68,7 +73,8 @@ function initializeChart() {
                     }
                 },
                 y: {
-                    display: false
+                    display: false,
+                    max: 2
                 }
             },
             plugins: {
@@ -88,20 +94,25 @@ function initializeChart() {
     });
 }
 
-// Update BMI marker on chart
 function updateBMIMarker(bmi) {
-    if (bmiChart.annotation) {
-        bmiChart.annotation.destroy();
+    const markerDiv = document.getElementById('bmi-marker');
+    if (!markerDiv) {
+        const canvas = document.getElementById('bmiChart');
+        const marker = document.createElement('div');
+        marker.id = 'bmi-marker';
+        marker.style.position = 'absolute';
+        marker.style.width = '2px';
+        marker.style.backgroundColor = 'black';
+        marker.style.top = '0';
+        marker.style.height = '20px';
+        canvas.parentElement.style.position = 'relative';
+        canvas.parentElement.appendChild(marker);
     }
     
-    bmiChart.annotation = new Chart.Annotation({
-        type: 'line',
-        scaleID: 'x',
-        value: bmi,
-        borderColor: 'black',
-        borderWidth: 2
-    });
-    bmiChart.update();
+    const canvas = document.getElementById('bmiChart');
+    const rect = canvas.getBoundingClientRect();
+    const position = (bmi / 40) * rect.width;
+    markerDiv.style.left = `${position}px`;
 }
 
 // Event handlers and UI updates
