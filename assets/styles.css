@@ -9,21 +9,6 @@
     padding: 1rem 0;
 }
 
-.input-section {
-    background-color: #F8F9FA;
-    padding: 2rem;
-    border-radius: 10px;
-    margin: 1rem 0;
-}
-
-.result-section {
-    background-color: #E9ECEF;
-    padding: 2rem;
-    border-radius: 10px;
-    margin: 1rem 0;
-    text-align: center;
-}
-
 .category-normal {
     color: #198754;
     font-weight: bold;
