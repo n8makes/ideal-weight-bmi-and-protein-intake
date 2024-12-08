@@ -144,4 +144,31 @@ input[type="number"] {
     .container {
         padding: 1rem;
     }
+.bmi-marker-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+#bmi-marker {
+    position: absolute;
+    width: 2px;
+    background-color: black;
+    height: 80px;
+    top: 30px;
+}
+
+.bmi-marker-label {
+    position: absolute;
+    top: 10px;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+}
 }

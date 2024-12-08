@@ -89,24 +89,34 @@ function initializeChart() {
 }
 
 function updateBMIMarker(bmi) {
-    const markerDiv = document.getElementById('bmi-marker');
+    const container = document.querySelector('.visualization-section');
+    let markerContainer = document.querySelector('.bmi-marker-container');
+    
+    if (!markerContainer) {
+        markerContainer = document.createElement('div');
+        markerContainer.className = 'bmi-marker-container';
+        container.appendChild(markerContainer);
+    }
+
+    let markerDiv = document.getElementById('bmi-marker');
+    let markerLabel = document.querySelector('.bmi-marker-label');
+    
     if (!markerDiv) {
-        const canvas = document.getElementById('bmiChart');
-        const marker = document.createElement('div');
-        marker.id = 'bmi-marker';
-        marker.style.position = 'absolute';
-        marker.style.width = '2px';
-        marker.style.backgroundColor = 'black';
-        marker.style.top = '0';
-        marker.style.height = '20px';
-        canvas.parentElement.style.position = 'relative';
-        canvas.parentElement.appendChild(marker);
+        markerDiv = document.createElement('div');
+        markerDiv.id = 'bmi-marker';
+        markerContainer.appendChild(markerDiv);
+        
+        markerLabel = document.createElement('div');
+        markerLabel.className = 'bmi-marker-label';
+        markerDiv.appendChild(markerLabel);
     }
     
-    const canvas = document.getElementById('bmiChart');
-    const rect = canvas.getBoundingClientRect();
-    const position = (bmi / 40) * rect.width;
+    const chartArea = document.getElementById('bmiChart').getBoundingClientRect();
+    const containerArea = container.getBoundingClientRect();
+    const position = (bmi / 40) * chartArea.width;
+    
     markerDiv.style.left = `${position}px`;
+    markerLabel.textContent = `BMI ${bmi}`;
 }
 
 // Event handlers and UI updates
