@@ -69,7 +69,11 @@ function initializeChart() {
                             yMax: 2,
                             borderColor: 'black',
                             borderWidth: 2,
-                            display: false
+                            display: false,
+                            xScaleID: 'x',
+                            yScaleID: 'y',
+                            value: 0,
+                            mode: 'vertical'
                         }
                     }
                 },
@@ -87,13 +91,16 @@ function initializeChart() {
             },
             scales: {
                 x: {
-                    stacked: true,
+                    type: 'linear',
+                    min: 0,
+                    max: 40,
                     grid: {
                         display: false
                     }
                 },
                 y: {
                     display: false,
+                    min: 0,
                     max: 2
                 }
             }
@@ -103,8 +110,7 @@ function initializeChart() {
 
 function updateBMIMarker(bmi) {
     if (bmiChart) {
-        bmiChart.options.plugins.annotation.annotations.line1.xMin = bmi;
-        bmiChart.options.plugins.annotation.annotations.line1.xMax = bmi;
+        bmiChart.options.plugins.annotation.annotations.line1.value = bmi;
         bmiChart.options.plugins.annotation.annotations.line1.display = true;
         bmiChart.update();
     }
