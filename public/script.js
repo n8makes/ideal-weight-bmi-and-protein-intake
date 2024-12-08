@@ -61,22 +61,6 @@ function initializeChart() {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                annotation: {
-                    annotations: {
-                        line1: {
-                            type: 'line',
-                            yMin: 0,
-                            yMax: 2,
-                            borderColor: 'black',
-                            borderWidth: 2,
-                            display: false,
-                            xScaleID: 'x',
-                            yScaleID: 'y',
-                            value: 0,
-                            mode: 'vertical'
-                        }
-                    }
-                },
                 legend: {
                     display: false
                 },
@@ -91,16 +75,12 @@ function initializeChart() {
             },
             scales: {
                 x: {
-                    type: 'linear',
-                    min: 0,
-                    max: 40,
                     grid: {
                         display: false
                     }
                 },
                 y: {
                     display: false,
-                    min: 0,
                     max: 2
                 }
             }
@@ -109,11 +89,24 @@ function initializeChart() {
 }
 
 function updateBMIMarker(bmi) {
-    if (bmiChart) {
-        bmiChart.options.plugins.annotation.annotations.line1.value = bmi;
-        bmiChart.options.plugins.annotation.annotations.line1.display = true;
-        bmiChart.update();
+    const markerDiv = document.getElementById('bmi-marker');
+    if (!markerDiv) {
+        const canvas = document.getElementById('bmiChart');
+        const marker = document.createElement('div');
+        marker.id = 'bmi-marker';
+        marker.style.position = 'absolute';
+        marker.style.width = '2px';
+        marker.style.backgroundColor = 'black';
+        marker.style.top = '0';
+        marker.style.height = '20px';
+        canvas.parentElement.style.position = 'relative';
+        canvas.parentElement.appendChild(marker);
     }
+    
+    const canvas = document.getElementById('bmiChart');
+    const rect = canvas.getBoundingClientRect();
+    const position = (bmi / 40) * rect.width;
+    markerDiv.style.left = `${position}px`;
 }
 
 // Event handlers and UI updates
